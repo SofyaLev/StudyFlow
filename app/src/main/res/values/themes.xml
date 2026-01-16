@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.StudyFlow" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.StudyFlow" parent="Theme.Material3.DayNight.NoActionBar">
+        <color name="colorPrimary">@color/green_primary</color>
+        <color name="colorSecondary">@color/green_accent</color>
+
+        <color name="colorBackground">@color/background_main</color>
+        <color name="colorSurface">@color/card_background</color>
+
+        <color name="statusBarColor">@color/green_primary</color>
+    </style>
+
 </resources>
