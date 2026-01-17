@@ -2,13 +2,13 @@
 <resources>
 
     <style name="Theme.StudyFlow" parent="Theme.Material3.DayNight.NoActionBar">
-        <color name="colorPrimary">@color/green_primary</color>
-        <color name="colorSecondary">@color/green_accent</color>
+        <item name="colorPrimary">@color/green_primary</item>
+        <item name="colorSecondary">@color/green_accent</item>
 
-        <color name="colorBackground">@color/background_main</color>
-        <color name="colorSurface">@color/card_background</color>
+        <item name="android:colorBackground">@color/background_main</item>
+        <item name="colorSurface">@color/card_background</item>
 
-        <color name="statusBarColor">@color/green_primary</color>
+        <item name="android:statusBarColor">@color/green_primary</item>
     </style>
 
 </resources>
