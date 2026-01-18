@@ -1,22 +1,26 @@
 package com.example.studyflow.ui.subjects
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.studyflow.R
 
-class SubjectsFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(
-            R.layout.fragment_subjects,
-            container,
-            false
+class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val subjects = listOf(
+            SubjectItem("Mobile Development", 10, 4),
+            SubjectItem("Databases", 8, 6),
+            SubjectItem("Computer Networks", 12, 3)
         )
+
+        val rvSubjects: RecyclerView = view.findViewById(R.id.rvSubjects)
+
+        rvSubjects.layoutManager = LinearLayoutManager(requireContext())
+        rvSubjects.adapter = SubjectsAdapter(subjects)
     }
 }
