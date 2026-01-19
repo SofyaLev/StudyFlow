@@ -9,4 +9,9 @@
         android:name="com.example.studyflow.ui.subjects.SubjectsFragment"
         android:label="Subjects"/>
 
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.example.studyflow.ui.tasks.TasksFragment"
+        android:label="Tasks"/>
+
 </navigation>
