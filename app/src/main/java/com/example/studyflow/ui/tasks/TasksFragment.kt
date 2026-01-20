@@ -2,10 +2,10 @@ package com.example.studyflow.ui.tasks
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.R
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.studyflow.R
 
 class TasksFragment : Fragment(R.layout.fragment_tasks) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -17,7 +17,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
             TaskItem("Report", "15.01", true)
         )
 
-        val rvTasks: RecyclerView = view.findViewById(com.example.studyflow.R.id.rvTasks)
+        val rvTasks: RecyclerView = view.findViewById(R.id.rvTasks)
 
         rvTasks.layoutManager = LinearLayoutManager(requireContext())
         rvTasks.adapter = TasksAdapter(tasks)
