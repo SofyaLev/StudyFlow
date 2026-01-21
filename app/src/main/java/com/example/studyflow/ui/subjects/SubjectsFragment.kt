@@ -3,6 +3,7 @@ package com.example.studyflow.ui.subjects
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studyflow.R
@@ -21,6 +22,13 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
         val rvSubjects: RecyclerView = view.findViewById(R.id.rvSubjects)
 
         rvSubjects.layoutManager = LinearLayoutManager(requireContext())
-        rvSubjects.adapter = SubjectsAdapter(subjects)
+        rvSubjects.adapter = SubjectsAdapter(
+            items = subjects,
+            onItemClick = {
+                findNavController().navigate(
+                    R.id.action_sujectsFragment_to_tasksFragment
+                )
+            }
+        )
     }
 }
