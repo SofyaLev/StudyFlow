@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.studyflow.R
 
 class SubjectsAdapter (
-    private val items: List<SubjectItem>
+    private val items: List<SubjectItem>,
+    private val onItemClick: (SubjectItem) -> Unit
 ) : RecyclerView.Adapter<SubjectsAdapter.SubjectViewHolder>() {
 
     class SubjectViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -27,6 +28,9 @@ class SubjectsAdapter (
         val item = items[position]
         holder.title.text = item.title
         holder.progress.progress = (item.completedTasks * 100) / item.totalTasks
+        holder.itemView.setOnClickListener {
+            onItemClick(items[position])
+        }
     }
 
     override fun getItemCount() = items.size

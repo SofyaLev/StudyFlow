@@ -2,12 +2,17 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/subjectFragment">
+    app:startDestination="@id/subjectsFragment">
 
     <fragment
-        android:id="@+id/subjectFragment"
+        android:id="@+id/subjectsFragment"
         android:name="com.example.studyflow.ui.subjects.SubjectsFragment"
-        android:label="Subjects"/>
+        android:label="Subjects">
+
+        <action
+            android:id="@+id/action_sujectsFragment_to_tasksFragment"
+            app:destination="@+id/tasksFragment"/>
+    </fragment>
 
     <fragment
         android:id="@+id/tasksFragment"
