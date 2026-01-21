@@ -14,7 +14,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
 
         val subjectName = arguments?.getString("subjectName")
 
-        val titleTasks: TextView = view.findViewById(R.id.titleTasks)
+        val titleTasks: TextView = view.findViewById(R.id.tvSubjectTitle)
         titleTasks.text = subjectName ?: "Tasks"
 
         val tasks = listOf(
