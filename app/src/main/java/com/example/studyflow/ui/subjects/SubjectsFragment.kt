@@ -24,9 +24,14 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
         rvSubjects.layoutManager = LinearLayoutManager(requireContext())
         rvSubjects.adapter = SubjectsAdapter(
             items = subjects,
-            onItemClick = {
+            onItemClick = { subject ->
+                val bundle = Bundle().apply {
+                    putString("subjectName", subject.title)
+                }
+
                 findNavController().navigate(
-                    R.id.action_sujectsFragment_to_tasksFragment
+                    R.id.action_subjectsFragment_to_tasksFragment,
+                    bundle
                 )
             }
         )

@@ -10,13 +10,19 @@
         android:label="Subjects">
 
         <action
-            android:id="@+id/action_sujectsFragment_to_tasksFragment"
+            android:id="@+id/action_subjectsFragment_to_tasksFragment"
             app:destination="@+id/tasksFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/tasksFragment"
         android:name="com.example.studyflow.ui.tasks.TasksFragment"
-        android:label="Tasks"/>
+        android:label="Tasks">
+
+        <argument
+            android:name="subjectName"
+            app:argType="string"/>
+
+    </fragment>
 
 </navigation>
