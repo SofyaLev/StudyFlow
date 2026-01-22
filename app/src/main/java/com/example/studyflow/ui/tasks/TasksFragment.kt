@@ -23,6 +23,11 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
             TaskItem("Report", "15.01", true)
         )
 
+        val fab: View = view.findViewById(R.id.fabAddTask)
+        fab.setOnClickListener {
+            //findNavController().navigate(R.id.action_tasksFragment_to_addTaskFragment)
+        }
+
         val rvTasks: RecyclerView = view.findViewById(R.id.rvTasks)
 
         rvTasks.layoutManager = LinearLayoutManager(requireContext())
