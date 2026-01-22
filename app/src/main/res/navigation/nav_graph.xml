@@ -1,28 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/subjectsFragment">
 
     <fragment
         android:id="@+id/subjectsFragment"
         android:name="com.example.studyflow.ui.subjects.SubjectsFragment"
-        android:label="Subjects">
+        android:label="Subjects"
+        tools:layout="@layout/fragment_subjects">
 
         <action
             android:id="@+id/action_subjectsFragment_to_tasksFragment"
             app:destination="@+id/tasksFragment"/>
+
     </fragment>
 
     <fragment
         android:id="@+id/tasksFragment"
         android:name="com.example.studyflow.ui.tasks.TasksFragment"
-        android:label="Tasks">
+        android:label="Tasks"
+        tools:layout="@layout/fragment_tasks">
 
         <argument
             android:name="subjectName"
             app:argType="string"/>
 
+        <action
+            android:id="@+id/action_tasksFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/addTaskFragment"
+        android:name="com.example.studyflow.ui.tasks.AddTaskFragment"
+        android:label="Add Task"
+        tools:layout="@layout/fragment_add_task" >
+        <action
+            android:id="@+id/action_addTaskFragment_self"
+            app:destination="@id/addTaskFragment" />
     </fragment>
 
 </navigation>
