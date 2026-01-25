@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:background="@color/background_main"
     android:orientation="vertical"
-    android:padding="16dp"
     android:paddingTop="32dp">
 
     <LinearLayout
@@ -13,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +24,7 @@
             android:text="My subjects"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -38,12 +38,13 @@
         android:id="@+id/fabAddSubject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="56dp"
         android:contentDescription="Add new subject"
         app:backgroundTint="@color/green_primary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:srcCompat="@android:drawable/ic_input_add"
-        app:tint="@color/text_primary"/>
+        app:tint="@android:color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
