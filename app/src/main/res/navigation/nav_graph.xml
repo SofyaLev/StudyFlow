@@ -13,7 +13,11 @@
 
         <action
             android:id="@+id/action_subjectsFragment_to_tasksFragment"
-            app:destination="@+id/tasksFragment"/>
+            app:destination="@id/tasksFragment"/>
+
+        <action
+            android:id="@+id/action_subjectsFragment_to_addSubjectFragment"
+            app:destination="@id/addSubjectFragment" />
 
     </fragment>
 
@@ -41,5 +45,11 @@
             android:id="@+id/action_addTaskFragment_self"
             app:destination="@id/addTaskFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/addSubjectFragment"
+        android:name="com.example.studyflow.ui.subjects.AddSubjectFragment"
+        android:label="Add Subject"
+        tools:layout="@layout/fragment_add_subject" />
 
 </navigation>
