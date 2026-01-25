@@ -5,22 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_main"
-    android:padding="16dp"
     android:paddingTop="32dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
         android:text="New Task"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:padding="8dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="16dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Task name"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -34,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Deadline (e.g. 22.01.2026)"
-        android:layout_marginBottom="24dp">
+        android:layout_marginHorizontal="20dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDeadline"
@@ -46,8 +48,10 @@
         android:id="@+id/btnSaveTask"
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="16dp"
         android:text="Save Task"
         app:backgroundTint="@color/green_primary"
-        android:textColor="@color/text_primary"/>
+        android:textColor="@android:color/white"/>
 
 </LinearLayout>
