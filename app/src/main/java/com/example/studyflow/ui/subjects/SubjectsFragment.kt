@@ -21,7 +21,7 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
 
         val fab: View = view.findViewById(R.id.fabAddSubject)
         fab.setOnClickListener {
-            //findNavController().navigate(R.id.action_subjectsFragment_to_addSubjectFragment)
+            findNavController().navigate(R.id.action_subjectsFragment_to_addSubjectFragment)
         }
 
         val rvSubjects: RecyclerView = view.findViewById(R.id.rvSubjects)
