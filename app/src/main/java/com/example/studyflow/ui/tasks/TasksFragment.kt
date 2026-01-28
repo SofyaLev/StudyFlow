@@ -2,36 +2,60 @@ package com.example.studyflow.ui.tasks
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.studyflow.R
+import com.example.studyflow.data.database.AppDatabase
+import com.example.studyflow.databinding.FragmentTasksBinding
+import kotlinx.coroutines.launch
 
 class TasksFragment : Fragment(R.layout.fragment_tasks) {
+
+    private var _binding: FragmentTasksBinding? = null
+    private val binding get() = _binding!!
+
+    private val taskAdapter = TaskAdapter()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentTasksBinding.bind(view)
 
+        setupUI()
+        setupRecyclerView()
+        observeTasks()
+    }
+
+    private fun setupUI() {
         val subjectName = arguments?.getString("subjectName")
+        binding.tvSubjectTitle.text = subjectName ?: "Tasks"
 
-        val titleTasks: TextView = view.findViewById(R.id.tvSubjectTitle)
-        titleTasks.text = subjectName ?: "Tasks"
-
-        val tasks = listOf(
-            TaskItem("Lab №1", "29.01", false),
-            TaskItem("Test", "02.02", false),
-            TaskItem("Report", "15.01", true)
-        )
-
-        val fab: View = view.findViewById(R.id.fabAddTask)
-        fab.setOnClickListener {
+        binding.fabAddTask.setOnClickListener {
             findNavController().navigate(R.id.action_tasksFragment_to_addTaskFragment)
         }
+    }
 
-        val rvTasks: RecyclerView = view.findViewById(R.id.rvTasks)
+    private fun setupRecyclerView() {
+        binding.rvTasks.apply {
+            adapter = taskAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+        }
+    }
 
-        rvTasks.layoutManager = LinearLayoutManager(requireContext())
-        rvTasks.adapter = TasksAdapter(tasks)
+    private fun observeTasks() {
+        val database = AppDatabase.getDatabase(requireContext())
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            database.taskDao().getAllTasks().collect { tasksFromDb ->
+                taskAdapter.submitList(tasksFromDb)
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
