@@ -41,9 +41,6 @@
         android:name="com.example.studyflow.ui.tasks.AddTaskFragment"
         android:label="Add Task"
         tools:layout="@layout/fragment_add_task" >
-        <action
-            android:id="@+id/action_addTaskFragment_self"
-            app:destination="@id/addTaskFragment" />
     </fragment>
 
     <fragment
