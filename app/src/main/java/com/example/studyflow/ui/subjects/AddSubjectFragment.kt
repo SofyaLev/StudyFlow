@@ -12,7 +12,6 @@ import com.example.studyflow.R
 import com.example.studyflow.data.database.AppDatabase
 import com.example.studyflow.data.entities.SubjectEntity
 import com.example.studyflow.data.repositories.SubjectRepository
-import kotlin.getValue
 
 class AddSubjectFragment : Fragment(R.layout.fragment_add_subject) {
 
@@ -25,7 +24,7 @@ class AddSubjectFragment : Fragment(R.layout.fragment_add_subject) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val etName = view.findViewById<EditText>(R.id.tvSubjectTitle)
+        val etName = view.findViewById<EditText>(R.id.etSubjectName)
         val btnSave = view.findViewById<Button>(R.id.btnSaveSubject)
 
         btnSave.setOnClickListener {
@@ -36,9 +35,9 @@ class AddSubjectFragment : Fragment(R.layout.fragment_add_subject) {
 
                 viewModel.insert(newSubject)
 
-                findNavController().popBackStack()
-
                 Toast.makeText(requireContext(), "Subject saved", Toast.LENGTH_SHORT).show()
+
+                findNavController().popBackStack()
             } else {
                 Toast.makeText(requireContext(), "Enter the name of the subject", Toast.LENGTH_SHORT).show()
             }

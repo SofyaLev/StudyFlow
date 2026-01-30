@@ -27,9 +27,15 @@ class SubjectsAdapter (
     override fun onBindViewHolder(holder: SubjectViewHolder, position: Int) {
         val item = items[position]
         holder.title.text = item.title
-        holder.progress.progress = (item.completedTasks * 100) / item.totalTasks
+
+        holder.progress.progress = if (item.totalTasks > 0) {
+            (item.completedTasks * 100) / item.totalTasks
+        } else {
+            0
+        }
+
         holder.itemView.setOnClickListener {
-            onItemClick(items[position])
+            onItemClick(item)
         }
     }
 
