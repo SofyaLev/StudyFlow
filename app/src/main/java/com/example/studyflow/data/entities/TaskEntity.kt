@@ -9,5 +9,6 @@ data class TaskEntity (
     val id: Int = 0,
     val title: String,
     val deadline: String,
-    val isCompleted: Boolean = false
+    val isCompleted: Boolean = false,
+    val subjectId: Int? = null
 )
