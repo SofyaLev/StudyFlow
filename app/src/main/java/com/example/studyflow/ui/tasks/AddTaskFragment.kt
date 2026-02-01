@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,13 +22,26 @@ class AddTaskFragment : Fragment(R.layout.fragment_add_task) {
         TaskViewModelFactory(repository)
     }
 
+    private var currentTaskId: Int? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val etTitle = view.findViewById<EditText>(R.id.etTaskName)
         val etDeadline = view.findViewById<EditText>(R.id.etDeadline)
         val btnSave = view.findViewById<Button>(R.id.btnSaveTask)
+        val tvHeader = view.findViewById<TextView>(R.id.tvHeader)
 
+        arguments?.let {
+            if (it.containsKey("taskId")) {
+                currentTaskId = it.getInt("taskId")
+                etTitle.setText(it.getString("taskTitle"))
+                etDeadline.setText(it.getString("taskDeadline"))
+
+                btnSave.text = "Update task"
+                tvHeader?.text = "Edit task"
+            }
+        }
         btnSave.setOnClickListener {
             val title = etTitle.text.toString().trim()
             val deadline = etDeadline.text.toString().trim()
@@ -36,15 +50,20 @@ class AddTaskFragment : Fragment(R.layout.fragment_add_task) {
 
             if (title.isNotEmpty()) {
                 val newTask = TaskEntity(
+                    id = currentTaskId ?: 0,
                     title = title,
                     deadline = deadline,
                     isCompleted = false,
                     subjectId = subjectId
                 )
 
-                viewModel.insert(newTask)
-
-                Toast.makeText(requireContext(), "Task saved", Toast.LENGTH_SHORT).show()
+                if (currentTaskId == null) {
+                    viewModel.insert(newTask)
+                    Toast.makeText(requireContext(), "Task saved", Toast.LENGTH_SHORT).show()
+                } else {
+                    viewModel.update(newTask)
+                    Toast.makeText(requireContext(), "Task updated", Toast.LENGTH_SHORT).show()
+                }
 
                 findNavController().popBackStack()
             } else {

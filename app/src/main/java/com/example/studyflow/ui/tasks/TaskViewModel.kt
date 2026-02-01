@@ -15,4 +15,12 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
     fun insert(task: TaskEntity) = viewModelScope.launch {
         repository.insert(task)
     }
+
+    fun update(task: TaskEntity) = viewModelScope.launch {
+        repository.update(task)
+    }
+
+    fun delete(taskId: Int) = viewModelScope.launch {
+        repository.delete(taskId)
+    }
 }
