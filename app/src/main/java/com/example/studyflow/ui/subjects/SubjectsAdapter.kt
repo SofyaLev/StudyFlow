@@ -5,17 +5,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studyflow.R
+import com.example.studyflow.data.entities.SubjectEntity
 
 class SubjectsAdapter (
-    private val items: List<SubjectItem>,
-    private val onItemClick: (SubjectItem) -> Unit
-) : RecyclerView.Adapter<SubjectsAdapter.SubjectViewHolder>() {
+    private val onItemClick: (SubjectEntity) -> Unit,
+    private val onLongClick: (SubjectEntity) -> Unit
+) : ListAdapter<SubjectEntity, SubjectsAdapter.SubjectViewHolder>(SubjectDiffCallback()) {
 
     class SubjectViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.tvTitle)
         val progress: ProgressBar = view.findViewById(R.id.progress)
+
+        fun bind(subject: SubjectEntity, onClick: (SubjectEntity) -> Unit, onLong: (SubjectEntity) -> Unit) {
+            title.text = subject.name
+            progress.progress = 0
+
+            itemView.setOnClickListener { onClick(subject) }
+            itemView.setOnLongClickListener {
+                onLong(subject)
+                true
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubjectViewHolder {
@@ -25,19 +39,16 @@ class SubjectsAdapter (
     }
 
     override fun onBindViewHolder(holder: SubjectViewHolder, position: Int) {
-        val item = items[position]
-        holder.title.text = item.title
-
-        holder.progress.progress = if (item.totalTasks > 0) {
-            (item.completedTasks * 100) / item.totalTasks
-        } else {
-            0
-        }
-
-        holder.itemView.setOnClickListener {
-            onItemClick(item)
-        }
+        holder.bind(getItem(position), onItemClick, onLongClick)
     }
 
-    override fun getItemCount() = items.size
+    class SubjectDiffCallback : DiffUtil.ItemCallback<SubjectEntity>() {
+        override fun areItemsTheSame(oldItem: SubjectEntity, newItem: SubjectEntity): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: SubjectEntity, newItem: SubjectEntity): Boolean {
+            return oldItem == newItem
+        }
+    }
 }

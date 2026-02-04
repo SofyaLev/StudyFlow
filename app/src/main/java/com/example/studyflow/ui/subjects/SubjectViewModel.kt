@@ -16,6 +16,10 @@ class SubjectViewModel(private val repository: SubjectRepository) : ViewModel() 
         repository.insert(subject)
     }
 
+    fun update(subject: SubjectEntity) = viewModelScope.launch {
+        repository.update(subject)
+    }
+
     fun delete(subjectId: Int) = viewModelScope.launch {
         repository.delete(subjectId)
     }

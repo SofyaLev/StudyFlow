@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.studyflow.data.entities.SubjectEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -14,6 +15,9 @@ interface SubjectDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSubject(subject: SubjectEntity)
+
+    @Update
+    suspend fun updateSubject(subject: SubjectEntity)
 
     @Query("DELETE FROM subjects WHERE id = :subjectId")
     suspend fun deleteSubject(subjectId: Int)

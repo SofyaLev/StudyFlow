@@ -8,11 +8,9 @@ class SubjectRepository(private val subjectDao: SubjectDao) {
 
     val allSubjects: Flow<List<SubjectEntity>> = subjectDao.getAllSubjects()
 
-    suspend fun insert(subject: SubjectEntity) {
-        subjectDao.insertSubject(subject)
-    }
+    suspend fun insert(subject: SubjectEntity) = subjectDao.insertSubject(subject)
 
-    suspend fun delete(subjectId: Int) {
-        subjectDao.deleteSubject(subjectId)
-    }
+    suspend fun update(subject: SubjectEntity) = subjectDao.updateSubject(subject)
+
+    suspend fun delete(subjectId: Int) = subjectDao.deleteSubject(subjectId)
 }
