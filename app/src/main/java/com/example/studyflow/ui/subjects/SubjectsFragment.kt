@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studyflow.R
@@ -19,40 +20,63 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
         SubjectViewModelFactory(repository)
     }
 
+    private val subjectsAdapter = SubjectsAdapter(
+        onItemClick = { subject ->
+            val bundle = Bundle().apply {
+                putInt("subjectId", subject.id)
+                putString("subjectName", subject.name)
+            }
+            findNavController().navigate(R.id.action_subjectsFragment_to_tasksFragment, bundle)
+        },
+        onLongClick = { subject ->
+            val bundle = Bundle().apply {
+                putInt("subjectId", subject.id)
+                putString("subjectName", subject.name)
+            }
+            findNavController().navigate(R.id.action_subjectsFragment_to_addSubjectFragment, bundle)
+        }
+    )
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val fab: View = view.findViewById(R.id.fabAddSubject)
         val rvSubjects: RecyclerView = view.findViewById(R.id.rvSubjects)
 
+        rvSubjects.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = subjectsAdapter
+        }
+
         fab.setOnClickListener {
             findNavController().navigate(R.id.action_subjectsFragment_to_addSubjectFragment)
         }
 
-        rvSubjects.layoutManager = LinearLayoutManager(requireContext())
+        setupSwipeToDelete(rvSubjects)
 
-        viewModel.allSubjects.observe(viewLifecycleOwner) { subjectEntities ->
-            val subjects = subjectEntities.map { entity ->
-                SubjectItem(
-                    title = entity.name,
-                    totalTasks = 0,
-                    completedTasks = 0
-                )
-            }
-
-            rvSubjects.adapter = SubjectsAdapter(
-                items = subjects,
-                onItemClick = { subjectItem ->
-                    val bundle = Bundle().apply {
-                        putString("subjectName", subjectItem.title)
-                    }
-
-                    findNavController().navigate(
-                        R.id.action_subjectsFragment_to_tasksFragment,
-                        bundle
-                    )
-                }
-            )
+        viewModel.allSubjects.observe(viewLifecycleOwner) { subjects ->
+            subjectsAdapter.submitList(subjects)
         }
+    }
+
+    private fun setupSwipeToDelete(recyclerView: RecyclerView) {
+        val swipeHandler = object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT
+        ) {
+            override fun onMove(
+                rv: RecyclerView,
+                vh: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val subject = subjectsAdapter.currentList[position]
+
+                viewModel.delete(subject.id)
+            }
+        }
+        ItemTouchHelper(swipeHandler).attachToRecyclerView(recyclerView)
     }
 }
