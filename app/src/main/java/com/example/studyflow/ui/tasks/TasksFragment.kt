@@ -17,14 +17,20 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
 
     private var _binding: FragmentTasksBinding? = null
     private val binding get() = _binding!!
-    private val taskAdapter = TasksAdapter { task ->
-        val bundle = Bundle().apply {
-            putInt("taskId", task.id)
-            putString("taskTitle", task.title)
-            putString("taskDeadline", task.deadline)
+    private val taskAdapter = TasksAdapter(
+        onTaskClick = { task ->
+            val bundle = Bundle().apply {
+                putInt("taskId", task.id)
+                putString("taskTitle", task.title)
+                putInt("subjectId", task.subjectId ?: -1)
+                putString("taskDeadline", task.deadline)
+            }
+            findNavController().navigate(R.id.action_tasksFragment_to_addTaskFragment, bundle)
+        },
+        onStatusChanged = { updatedTask ->
+            viewModel.update(updatedTask)
         }
-        findNavController().navigate(R.id.action_tasksFragment_to_addTaskFragment, bundle)
-    }
+    )
 
     private val viewModel: TaskViewModel by viewModels {
         val database = AppDatabase.getDatabase(requireContext())
@@ -44,10 +50,14 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
 
     private fun setupUI() {
         val subjectName = arguments?.getString("subjectName")
+        val subjectId = arguments?.getInt("subjectId") ?: -1
         binding.tvSubjectTitle.text = subjectName ?: "Tasks"
 
         binding.fabAddTask.setOnClickListener {
-            findNavController().navigate(R.id.action_tasksFragment_to_addTaskFragment)
+            val bundle = Bundle().apply {
+                putInt("subjectId", subjectId)
+            }
+            findNavController().navigate(R.id.action_tasksFragment_to_addTaskFragment, bundle)
         }
     }
 
