@@ -54,8 +54,8 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
 
         setupSwipeToDelete(rvSubjects)
 
-        viewModel.allSubjects.observe(viewLifecycleOwner) { subjects ->
-            subjectsAdapter.submitList(subjects)
+        viewModel.allSubjectsWithTasks.observe(viewLifecycleOwner) { subjectsWithTasks ->
+            subjectsAdapter.submitList(subjectsWithTasks)
         }
     }
 
@@ -74,7 +74,7 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
                 val position = viewHolder.adapterPosition
                 val subject = subjectsAdapter.currentList[position]
 
-                viewModel.delete(subject.id)
+                viewModel.delete(subject.subject.id)
             }
         }
         ItemTouchHelper(swipeHandler).attachToRecyclerView(recyclerView)
