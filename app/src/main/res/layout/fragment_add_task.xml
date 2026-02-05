@@ -42,7 +42,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDeadline"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
